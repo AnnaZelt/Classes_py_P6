@@ -26,7 +26,15 @@ class Student:
             for grade in grade_dict.values():
                 total_sum += int(grade)
         average = total_sum / num_grades
-        print(f"Average grade for {self.Name}: {average:.2f}")
+        print(f"Average grade for {self.Name}: {average:.2f}") 
+    
+    def grade(self):
+        total_sum = 0
+        num_grades = len(self.Grades)
+        for grade_dict in self.Grades:
+            for grade in grade_dict.values():
+                total_sum += int(grade)
+        average = total_sum / num_grades
         return average
         
 class Tests:
@@ -54,19 +62,17 @@ def main():
             for x in students:
                 x.printAvg()
         if selection == Actions.PRINT_HIGHEST:
-            printHighest()# for x in students:
-            #     if (x):
-            #         if (issubclass(type(x),Lion)):
-            #             print(f"Lion: {x}")
-            #         if (issubclass(type(x),Tiger)):
-            #             print(f"Tiger: {x}")
-        # if selection == Actions.PRINT_HIGHEST:
-        #     for x in students:
-        #         if (issubclass(type(x), Predator)):
-        #             if (issubclass(type(x),Lion)):
-        #                 print(f"Lion: {x}")
-        #             if (issubclass(type(x),Tiger)):
-        #                 print(f"Tiger: {x}")                
+            highest = 0
+            for x in students:
+                if x.grade() > highest:
+                    highest = x.grade()
+            print (highest)
+        if selection == Actions.PRINT_LOWEST:
+            lowest = 100
+            for x in students:
+                if x.grade() < lowest:
+                    lowest = x.grade()
+            print(lowest)       
         if selection == Actions.ADD:
             add()
         if selection == Actions.EXIT:
@@ -88,21 +94,20 @@ def add():
     grades = Tests(tests)
     student = Student(name,age,sex,grades.Grades)
     students.append(student)
-# ... (other code)
+
 def printHighest():
         global students
         highest_grade = 0
         total_sum = 0
-        num_grades = len(students.Grades)
         for student in students:
-            name = student["Name"]
-            for grade_dict in students["Grades"]:
+            currenStudent = student
+            for grade_dict in students[-1]:
                 for grade in grade_dict.values():
                     total_sum += int(grade)
-            average = total_sum / num_grades
-        if average > highest_grade:
-            print(name)
-            return
+            average = total_sum / 4
+            if average > highest_grade:
+                print(currenStudent)
+                return
 
 def save():
     global students
